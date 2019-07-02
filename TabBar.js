@@ -18,9 +18,8 @@ export default class TabBar extends React.Component {
   };
 
   render() {
-    const bannerHeight = this.props.bannerHeight || 0;
     return (
-      <View style={[styles.container, { height: Layout.tabBarHeight + bannerHeight }]}>
+      <View style={[styles.container]}>
         {this.props.banner}
         <Animated.View {...this.props} style={[styles.barContainer, this.props.style]}>
           {this.props.children}

@@ -89,7 +89,7 @@ export default class TabNavigator extends React.Component {
     return (
       <View {...props} style={[styles.container, style]}>
         {scenes}
-        <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle} banner={banner} bannerHeight={bannerHeight}>
+        <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle} banner={banner}>
           {React.Children.map(children, this._renderTab)}
         </TabBar>
       </View>
