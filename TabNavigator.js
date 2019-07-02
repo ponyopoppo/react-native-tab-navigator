@@ -64,7 +64,8 @@ export default class TabNavigator extends React.Component {
   }
 
   render() {
-    let { style, children, tabBarStyle, tabBarShadowStyle, sceneStyle, banner, ...props } = this.props;
+    let { style, children, tabBarStyle, tabBarShadowStyle, sceneStyle, banner, bannerHeight, ...props } = this.props;
+    if (!bannerHeight) bannerHeight = 0;
     let scenes = [];
 
     React.Children.forEach(children, (item, index) => {
@@ -78,7 +79,7 @@ export default class TabNavigator extends React.Component {
 
       let { selected } = item.props;
       let scene =
-        <SceneContainer key={sceneKey} selected={selected} style={sceneStyle}>
+        <SceneContainer key={sceneKey} selected={selected} style={sceneStyle} bannerHeight={bannerHeight}>
           {item}
         </SceneContainer>;
 
@@ -88,8 +89,7 @@ export default class TabNavigator extends React.Component {
     return (
       <View {...props} style={[styles.container, style]}>
         {scenes}
-        {banner}
-        <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle}>
+        <TabBar style={tabBarStyle} shadowStyle={tabBarShadowStyle} banner={banner} bannerHeight={bannerHeight}>
           {React.Children.map(children, this._renderTab)}
         </TabBar>
       </View>
@@ -152,7 +152,7 @@ class SceneContainer extends React.Component {
   };
 
   render() {
-    let { selected, ...props } = this.props;
+    let { selected, bannerHeight, ...props } = this.props;
     return (
       <View
         {...props}
@@ -162,6 +162,7 @@ class SceneContainer extends React.Component {
           styles.sceneContainer,
           selected ? null : styles.hiddenSceneContainer,
           props.style,
+          { paddingBottom: Layout.tabBarHeight + bannerHeight }
         ]}>
         <StaticContainer shouldUpdate={selected}>
           {this.props.children}
